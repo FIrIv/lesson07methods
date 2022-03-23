@@ -1,6 +1,7 @@
 package test.skypro;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,6 +18,16 @@ public class Main {
         // задание 3
         int distance = 60;
         System.out.println(distance + " км : " + calculateDeliveryDays (distance));
+
+        // задание 4
+        String s = "aabccddefgghiijjkk";
+        findRepeats(s);
+
+        // задание 5
+        int[] arr = {1,3,5,7,9,2,4,6,8,0};
+        System.out.println("Первоначальный массив : " + Arrays.toString(arr));
+        reverseArray(arr);
+        System.out.println("В обратном порядке : " + Arrays.toString(arr));
     }
 
     public static String testYear(int year) {
@@ -53,5 +64,24 @@ public class Main {
         else if (distance > 60 && distance <=100) days = 3;
         else if (distance > 100) return ("Доставка более 100км не производится. ");
         return "Доставка " + days + "дн.";
+    }
+
+    public static void findRepeats (String s) {
+        for (int i=0; i<s.length()-1; i++) {
+            if (s.charAt(i)==s.charAt(i+1)) {
+                System.out.println("В строке " + s + " обнаружен дубль : " + s.charAt(i));
+                return;
+            }
+        }
+        System.out.println("В строке " + s + " дублей не обнаружено ");
+    }
+
+    public static void reverseArray (int[] arr) {
+        int temp = 0;
+        for (int i=0; i<arr.length/2; i++) {
+            temp = arr[i];
+            arr[i] = arr[arr.length-i-1];
+            arr[arr.length-i-1] = temp;
+        }
     }
 }
