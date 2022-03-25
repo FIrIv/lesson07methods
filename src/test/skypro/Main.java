@@ -28,6 +28,50 @@ public class Main {
         System.out.println("Первоначальный массив : " + Arrays.toString(arr));
         reverseArray(arr);
         System.out.println("В обратном порядке : " + Arrays.toString(arr));
+
+        // Строки, задание 5
+        String fullName = "Ivanov Ivan Ivanovich";
+        String lastName = fullName.substring(0,fullName.indexOf(' '));
+        String firstName = fullName.substring(fullName.indexOf(' ')+1,fullName.lastIndexOf(' '));
+        String middleName = fullName.substring(fullName.lastIndexOf(' ')+1,fullName.length());
+        System.out.println("Имя сотрудника - " + firstName);
+        System.out.println("Отчество сотрудника - " + middleName);
+        System.out.println("Фамилия сотрудника - " + lastName);
+
+        // Строки, задание 6
+        fullName = "ivanov ivan ivanovich";
+        char[] fio = fullName.toCharArray();
+        for (int ch = 0; ch < fio.length; ch++) {
+            if (ch == 0 || fio[ch-1] == ' ') fio[ch] = Character.toUpperCase(fio[ch]);
+            //else fio[ch] = Character.toLowerCase(fio[ch]); // если остальные буквы могут быть большими
+        }
+        fullName = String.copyValueOf(fio); // можно и String.valueOf(fio); работает аналогично, но "Copy как будто читается понятнее"
+        // fullName = Arrays.toString(fio); // выводит как [I, v, a, n, o, v,  , I, v, a, n,  , I, v, a, n, o, v, i, c, h]
+        System.out.println("Верное написание Ф.И.О. сотрудника с заглавных букв - " + fullName);
+
+        // Строки, задание 7
+        String s1 = "135";
+        String s2 = "246";
+        StringBuilder st = new StringBuilder();
+        for (int pos = 0; pos<s1.length(); pos++) {
+            st.append(s1.charAt(pos));
+            st.append(s2.charAt(pos));
+        }
+        System.out.println("Данные строки - " + st);
+
+        // Строки, задание 8
+        String letters = "aabccddefgghiijjkk";
+        StringBuilder letters2 = new StringBuilder();
+        for (int j=0;j<letters.length();j++) {
+            if (j==0 || (letters.charAt(j) != letters.charAt(j-1))) letters2.append(letters.charAt(j));
+        }
+        System.out.println("Строка без повторов - " + letters2);
+
+        // Методы, задание 6
+        int countOfDays = 30;
+        int [] spendingPerMonth = generateRandomArray(0, 1_000_000, countOfDays);
+        float averageSpendingPerDays = countAverageSpendingPerDays(spendingPerMonth, countOfDays);
+        System.out.println("Средняя сумма трат за месяц составила " + averageSpendingPerDays + " рублей. ");
     }
 
     public static String testYear(int year) {
@@ -83,5 +127,26 @@ public class Main {
             arr[i] = arr[arr.length-i-1];
             arr[arr.length-i-1] = temp;
         }
+    }
+
+    public static int[] generateRandomArray (int min, int max, int countOfElements) {
+        java.util.Random random = new java.util.Random();
+        int[] arr = new int[countOfElements];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(max-min) + min;
+        }
+        return arr;
+    }
+
+    public static float countAverageSpendingPerDays (int[] spendingPerMonth, int countOfDays) {
+        return (float)countSumSpendingPerDays(spendingPerMonth) / (float)countOfDays;
+    }
+
+    public static int countSumSpendingPerDays(int[] spendingPerMonth) {
+        int Sum = 0;
+        for (int i=0; i<spendingPerMonth.length; i++) {
+            Sum += spendingPerMonth[i];
+        }
+        return Sum;
     }
 }
